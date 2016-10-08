@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grapher</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+    </script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.5/jsxgraphcore.js">
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css" >
+
+    <script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraphcore.js">
+    </script>
+
+</head>
+
+<body>
+    <div class="col-lg-6">
+      <div class="input-group" id='eq_in'>
+        <input type="text" class="form-control" placeholder="Enter Equation...">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" onClick="doIt()">Go</button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
+<div id="box" class="jxgbox" style="width:600px; height:600px;"></div>
+
+<script type="text/javascript">
+  var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true});
+
+// Macro function plotter
+function addCurve(board, func, atts) {
+    var f = board.create('functiongraph', [func], atts);
+    return f;
+}
+
+// Simplified plotting of function
+function plot(func, atts) {
+   if (atts==null) {
+      return addCurve(board, func, {strokewidth:2});
+   } else {
+      return addCurve(board, func, atts);
+   }
+}
+
+// Free point
+var p = board.create('point', [1,1], {style:6, name:'p'});
+
+// Usage of the macro
+function doIt() {
+    console.log('')
+    console.log(document.getElementById('eq_in').value)
+    eval(document.getElementById('eq_in').value);
+}
+
+function clearAll(board) {
+    JXG.JSXGraph.freeBoard(board);
+    board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true});
+    p = board.create('point', [3,-4], {style:6, name:'p'});
+    return board;
+}
+</script>
+</body>
+
+</html>
