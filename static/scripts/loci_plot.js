@@ -13,30 +13,25 @@ var board_atts={boundingbox:[-6,6,6,-6],
 
 var board = JXG.JSXGraph.initBoard('box', board_atts);
 
-// Macro function plotter
-function addCurve(board, func, atts) {
-  var f = board.create('functiongraph', [func], atts);
-  return f;
-}
+var plots = 0 //Use plots variable to track each plot (name of each curve)
+//A better function plotter
+//http://jsxgraph.uni-bayreuth.de/wiki/index.php/Even_simpler_function_plotter
 
-// Simplified plotting of function
-function plot(func, atts) {
- if (atts==null) {
-    return addCurve(board, func, {strokewidth:2});
- } else {
-    return addCurve(board, func, atts);
- }
-}
+//Hide/show elements from checkboxes
+//https://groups.google.com/forum/#!topic/jsxgraph/-AAkjV4CTDw
+
+//Use Board.removeObject() to delete individual lines
 
 // Usage of the macro
-function doIt() {
-    function f(x){return eval(document.getElementById('eq_in').value);}
-    c=plot(f);
-    //eval(document.getElementById('eq_in').value);
-    console.log('a');
+function plot() {
+    var input = $('#eq_in').val();
+    f = board.jc.snippet(input,true,'x',true);
+    curve=board.create('functiongraph',[f],{name:plots,withLabel:true});
+    plots+=1
 }
 
 function clearAll(board) {
+    plots=0
     JXG.JSXGraph.freeBoard(board);
 
     var board = JXG.JSXGraph.initBoard('box', board_atts);

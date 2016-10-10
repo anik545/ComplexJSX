@@ -11,11 +11,11 @@ var axy =board.create('arrow', [org,xy], {strokeColor:'red'});
 var ax2 =board.create('arrow', [x,xy], {strokeColor:'blue',strokeWidth:1,dash:1});
 var ay2 =board.create('arrow', [y,xy], {strokeColor:'blue',strokeWidth:1,dash:1});
 
-brd2 = JXG.JSXGraph.initBoard('box2', {boundingbox: [-6, 6, 8, -4], axis: true});
+//brd2 = JXG.JSXGraph.initBoard('box2', {boundingbox: [-6, 6, 8, -4], axis: true});
 
-var org2 = brd2.create('point', [0,0], {style:10,visible:true,fixed:true,name:' '});
-var x = brd2.create('point', [1,0], {style:4,color:'blue',name:'x'});
-var y = brd2.create('point', [0,2], {style:4,color:'red',strokeColor:'red',name:'y'});
-var xy = brd2.create('point',
+var org2 = board.create('point', [0,0], {style:10,visible:true,fixed:true,name:' '});
+var x2 = board.create('point', [1,0], {style:4,color:'blue',name:'x'});
+var y2 = board.create('point', [0,2], {style:4,color:'red',strokeColor:'red',name:'y'});
+var xy2 = board.create('point',
     ["X(x)*X(y)-Y(x)*Y(y)","X(x)*Y(y)+X(y)*Y(x)"], {style:7,fillColor:'green',strokeColor:'green',name:'x*y'});
-var c = brd2.create('circle',[org2,1],{strokeWidth:1,dash:1});
+var c = board.create('circle',[org2,1],{strokeWidth:1,dash:1});
