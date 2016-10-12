@@ -29,14 +29,20 @@
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Enter Equation..." id='eq_in'>
             <span class="input-group-btn">
-                <button onclick="plot()" class="btn btn-default" type="button">Go</button>
+                <button id="go"  class="btn btn-default" type="button">Go</button>
             </span>
         </div><!-- /input-group -->
         <div id="box" class="jxgbox" style="width:100%; height:600px;"></div>
-        <button class="btn btn-block" onclick="board=clearAll(board)">Clear All</button>
+        <button id ="clear" class="btn btn-block">Clear All</button>
     </div><!-- /.col-lg-12 -->
 
-    <script type="text/javascript" src="{{ url_for('static',filename='scripts/loci_plot.js') }}"></script>
+    <script type=text/javascript>
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script type="text/javascript" src="{{ url_for('static',filename='scripts/loci_plot.js') }}">
+    </script>
+
 </body>
 
 </html>

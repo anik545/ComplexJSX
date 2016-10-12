@@ -9,9 +9,9 @@ var board_atts={boundingbox:[-6,6,6,-6],
         factorY:1.25,
         wheel:true,
         needshift:false
-    }}
-
-var board = JXG.JSXGraph.initBoard('box', board_atts);
+        }
+    }
+//var board = JXG.JSXGraph.initBoard('box', board_atts);
 
 var plots = 0 //Use plots variable to track each plot (name of each curve)
 //A better function plotter
@@ -22,18 +22,19 @@ var plots = 0 //Use plots variable to track each plot (name of each curve)
 
 //Use Board.removeObject() to delete individual lines
 
-// Usage of the macro
-function plot() {
-    var input = $('#eq_in').val();
-    f = board.jc.snippet(input,true,'x',true);
-    curve=board.create('functiongraph',[f],{name:plots,withLabel:true});
-    plots+=1
-}
+var board = JXG.JSXGraph.initBoard('box', board_atts);
 
-function clearAll(board) {
-    plots=0
-    JXG.JSXGraph.freeBoard(board);
-
-    var board = JXG.JSXGraph.initBoard('box', board_atts);
-    return board;
-}
+$(document).ready(function(){
+    $('#go').on('click',function(){
+        console.log(board);
+        var input=$('#eq_in').val();
+        f=board.jc.snippet(input,true,'x',true);
+        curve=board.create('functiongraph',[f],{name:input,withLabel:true});
+        plots+=1;
+    });
+    $('button#clear').on('click',function(){
+        plots=0;
+        JXG.JSXGraph.freeBoard(board);
+        board = JXG.JSXGraph.initBoard('box', board_atts);
+    });
+});
