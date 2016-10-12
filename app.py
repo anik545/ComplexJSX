@@ -17,7 +17,8 @@ def plot():
     eq=request.args.get('eq',0,type=str)
     LHS,RHS=eq.split('=')
     lines=get_lines(LHS,RHS)
-    lines=[str(x) for x in lines]
+    lines=[str(x).replace('**','^') for x in lines]
+    print(lines)
     return jsonify(result=lines) #TODO both curves in circle
 
 @app.route('/operations-argand')

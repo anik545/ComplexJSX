@@ -27,7 +27,7 @@ var board = JXG.JSXGraph.initBoard('box', board_atts);
 $(document).ready(function(){
     $('#go').on('click',function(){
         $.getJSON($SCRIPT_ROOT+'/_plot',{
-            eq:$('input[name="in"]').val()      //TODO both curves in circle
+            eq:$('input[name="in"]').val()    
         },function(data){
             console.log(data.result);
             $.each(data.result,function(i,v){

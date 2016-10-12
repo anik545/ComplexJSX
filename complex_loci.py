@@ -11,10 +11,9 @@ def mod_to_abs(eq):
             for y,char2 in reversed(list(enumerate(eq))):
                 if char2=='|':
                     eq_list[y]=')'
-                    return ''.join(eq_list[:x+1] + mod_to_abs(eq_list[x+1:y]) + eq_list[y:])
+                    return ''.join(eq_list[:x+1] + list(mod_to_abs(eq_list[x+1:y])) + eq_list[y:])
 
-
-#FIXME fix recursion, |z-|5i+4|| only evaluates inner mod
+#TODO cant do equations of form |z-a|=|z-b|, a&b real since vertical line with infinite gradient
 
 def get_lines(lhs,rhs):
 
@@ -32,6 +31,8 @@ def get_lines(lhs,rhs):
 
     solns=list(solveset(lhs-rhs,y))
     return solns
+
+
 
 if __name__ == '__main__':
     equation="|z-5*i|=|z-25|"
