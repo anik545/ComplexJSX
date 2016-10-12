@@ -26,13 +26,24 @@ var board = JXG.JSXGraph.initBoard('box', board_atts);
 
 $(document).ready(function(){
     $('#go').on('click',function(){
-        console.log(board);
+        $.getJSON($SCRIPT_ROOT+'/_plot',{
+            eq:$('input[name="in"]').val()      //TODO both curves in circle
+        },function(data){
+            console.log(data.result);
+            $.each(data.result,function(i,v){
+                f=board.jc.snippet(v,true,'x',true);
+                curve=board.create('functiongraph',[f],{name:plots,withLabel:false});
+            })
+            plots+=1
+        });
+        return false; //--> //if fail? it was in the example
+        /*console.log(board);
         var input=$('#eq_in').val();
         f=board.jc.snippet(input,true,'x',true);
         curve=board.create('functiongraph',[f],{name:input,withLabel:true});
-        plots+=1;
+        plots+=1;*/
     });
-    $('button#clear').on('click',function(){
+    $('#clear').on('click',function(){
         plots=0;
         JXG.JSXGraph.freeBoard(board);
         board = JXG.JSXGraph.initBoard('box', board_atts);
