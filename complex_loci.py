@@ -15,6 +15,9 @@ def mod_to_abs(eq):
 
 #TODO cant do equations of form |z-a|=|z-b|, a&b real since vertical line with infinite gradient
 
+
+#TODO add support for arg, use equation: 2atan((sqrt(x^2+y^2)-x)/y)
+
 def get_lines(lhs,rhs):
 
     x,y,z=symbols('x y z',real=True)

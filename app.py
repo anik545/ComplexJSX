@@ -19,7 +19,7 @@ def plot():
     lines=get_lines(LHS,RHS)
     lines=[str(x).replace('**','^') for x in lines]
     print(lines)
-    return jsonify(result=lines) #TODO both curves in circle
+    return jsonify(result=lines)
 
 @app.route('/operations-argand')
 def operations():
