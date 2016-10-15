@@ -1,8 +1,10 @@
 from flask import Flask,render_template,request,jsonify
 from complex_loci import *
 
+from views.matrix import matrix_blueprint
 
 app=Flask(__name__)
+app.register_blueprint(matrix_blueprint)
 
 @app.route('/')
 def main():
