@@ -24,20 +24,20 @@ var plots = 0 //Use plots variable to track each plot (name of each curve)
 
 var board = JXG.JSXGraph.initBoard('box', board_atts);
 
-var arg(x,y){
+var arg = function arg(x,y){
     if (x>0){
-        return Math.atan(y/x)
+        return Math.atan(y/x);
     } else if (x<0 && y>=0) {
-        return Math.atan(y/x)+Math.PI
+        return Math.atan(y/x)+Math.PI;
     } else if (x<0 && y<0) {
-        return Math.atan(y/x)-Math.PI
+        return Math.atan(y/x)-Math.PI;
     } else if (x===0 && y>0){
-        return Math.PI/2
+        return Math.PI/2;
     } else if (x===0 && y<0){
-        return -1*Math.PI/2
+        return -1*Math.PI/2;
     }
     return null
-}
+};
 
 
 $(document).ready(function(){
