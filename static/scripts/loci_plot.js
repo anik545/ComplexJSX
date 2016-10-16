@@ -61,12 +61,15 @@ $(document).ready(function() {
             plots += 1;
             lines.push([]);
             $('#expressions tbody').append(
-                '<tr>'+
+                '<tr id="row'+plots+'">'+
                     '<td>'+
                         eq+
                     '</td>'+
                     '<td>'+
                         '<input type="checkbox" name="plot" id="'+plots+'" checked>'+
+                    '</td>'+
+                    '<td>'+
+                        '<input type="button" class="btn btn-block" name="del" id="del'+plots+'" value="X">'+
                     '</td>'+
                 '</tr>'
                 )
@@ -87,6 +90,14 @@ $(document).ready(function() {
         lines=[];
         JXG.JSXGraph.freeBoard(board);
         board = JXG.JSXGraph.initBoard('box', board_atts);
+    });
+    $('#expressions').on('click','[type=button]',function(){
+        var id = $(this).attr('id').replace('del','');
+        $.each(lines[id], function(i,v){
+            board.removeObject(v);
+        });
+        lines[id]=[];
+        $('#row'+id).remove();
     });
 
 });
