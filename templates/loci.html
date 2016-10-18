@@ -22,12 +22,42 @@
     <script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraphcore.js">
     </script>
 
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        showProcessingMessages: false,
+        tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
+      });
+    </script>
+
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+    <script type="text/javascript" src="{{ url_for('static',filename='scripts/mathpreview.js') }}">
+    </script>
+
+
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
 </head>
 
 <body>
+    <row>
+        <div class="col-lg-12">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Enter Equation..." id='eq_in' name="in" onkeyup="Preview.Update()">
+                <span class="input-group-btn">
+                    <button id="go"  class="btn btn-default" type="button">Go</button>
+                </span>
+            </div><!-- /input-group -->
+        </div>
+    </row>
     <div class="col-sm-4">
+        <div>
+            Preview:
+            <div id=MathPreview></div>
+            <div id="MathBuffer"></div>
+        </div>
         <div>
             <table id="expressions" class="table">
                 <thead>
@@ -45,14 +75,8 @@
         </div>
     </div>
     <div class="col-sm-8">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Enter Equation..." id='eq_in' name="in">
-            <span class="input-group-btn">
-                <button id="go"  class="btn btn-default" type="button">Go</button>
-            </span>
-        </div><!-- /input-group -->
         <div id="box" class="jxgbox" style="width:100%; height:600px;"></div>
-    </div><!-- /.col-lg-12 -->
+    </div>
 
     <script type=text/javascript>
       $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
@@ -60,6 +84,8 @@
 
     <script type="text/javascript" src="{{ url_for('static',filename='scripts/loci_plot.js') }}">
     </script>
+
+    <script>Preview.Init()</script>
 
 </body>
 

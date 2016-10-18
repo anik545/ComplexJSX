@@ -27,7 +27,7 @@ var lines = []
 
 var board = JXG.JSXGraph.initBoard('box', board_atts);
 
-var arg = function arg(x, y) {
+function arg(x, y) {
     if (x > 0) {
         return Math.atan(y / x);
     } else if (x < 0 && y >= 0) {
@@ -42,46 +42,57 @@ var arg = function arg(x, y) {
     return null
 };
 
-$(document).ready(function() {
-    $('#go').on('click', function() {
-        var eq = $('input[name="in"]').val()
-        $.getJSON($SCRIPT_ROOT + '/_plot', {
-            eq: eq
-        }, function(data) {
-            plots += 1;
-            lines.push([]);
-            $('#expressions tbody').append(
-                '<tr id="row'+plots+'">'+
-                    '<td>'+
-                        eq+
-                    '</td>'+
-                    '<td>'+
-                        '<input type="checkbox" name="plot" id="'+plots+'" checked>'+
-                    '</td>'+
-                    '<td>'+
-                        '<input type="button" class="btn btn-block" name="del" id="del'+plots+'" value="X">'+
-                    '</td>'+
-                '</tr>'
-                )
-            if (data.type==='func'){
-                $.each(data.result, function(i, v) {
-                    f = board.jc.snippet(v, true, 'x', true);
-                    curve = board.create('functiongraph', [f], {
-                        name: plots,
-                        withLabel: false
-                    });
-                    lines[plots].push(curve);
-                });
-            } else if (data.type==='vert') {
-                curve=board.create('line',[-data.result[0],1,0],{
-                    name: plots,
-                    withLabel: false
-                });
-                lines[plots].push(curve);
-            }
+function addplot(){
+var eq = $('input[name="in"]').val()
+$.getJSON($SCRIPT_ROOT + '/_plot', {
+    eq: eq
+}, function(data) {
+    plots += 1;
+    lines.push([]);
+    $('#expressions tbody').append(
+        '<tr id="row'+plots+'">'+
+            '<td>'+
+                eq+
+            '</td>'+
+            '<td>'+
+                '<input type="checkbox" name="plot" id="'+plots+'" checked>'+
+            '</td>'+
+            '<td>'+
+                '<input type="button" class="btn btn-block" name="del" id="del'+plots+'" value="X">'+
+            '</td>'+
+        '</tr>'
+        )
+    if (data.type==='func'){
+        $.each(data.result, function(i, v) {
+            f = board.jc.snippet(v, true, 'x', true);
+            curve = board.create('functiongraph', [f], {
+                name: plots,
+                withLabel: false
+            });
+            lines[plots].push(curve);
         });
-        return false;
-    });
+    } else if (data.type==='vert') {
+        curve=board.create('line',[-data.result[0],1,0],{
+            name: plots,
+            fixed: true,
+            withLabel: false
+        });
+        lines[plots].push(curve);
+    }
+});
+return false;
+
+}
+
+
+$(document).ready(function() {
+
+    $('#eq_in').on('keyup', function(e) {
+        console.log(e.keyCode);
+        if (e.keyCode===13) {
+            addplot();
+        }});
+    $('#go').on('click', addplot);
     $('#clear').on('click', function() {
         $('#expressions tbody > tr').remove();
         plots = -1;
