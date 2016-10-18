@@ -1,6 +1,7 @@
 from sympy import *
 import time
 
+#TODO instead of subbing Abs(), find sqrt(re(x)+im(x)) instead.
 def mod_to_abs(eq):
     eq_list=[str(x) for x in eq]
     if '|' not in eq:
@@ -13,7 +14,6 @@ def mod_to_abs(eq):
                     eq_list[y]=')'
                     return ''.join(eq_list[:x+1] + list(mod_to_abs(eq_list[x+1:y])) + eq_list[y:])
 
-#TODO cant do equations of form |z-a|=|z-b|, a&b real since vertical line with infinite gradient
 def parse(eq):
     eq=mod_to_abs(eq)
     eq=eq.replace('i','I').replace('z','Z')
@@ -49,6 +49,7 @@ def get_lines(lhs,rhs):
         typ='func'
     else:
         solns=list(solveset(lhs-rhs,locs['x']))
+        solns=[float(x) for x in solns]
         typ='vert'
     return typ,solns
 

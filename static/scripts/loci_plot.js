@@ -68,6 +68,7 @@ $.getJSON($SCRIPT_ROOT + '/_plot', {
             f = board.jc.snippet(v, true, 'x', true);
             curve = board.create('functiongraph', [f], {
                 name: plots,
+                strokeWidth:2,
                 withLabel: false
             });
             lines[plots].push(curve);
@@ -75,6 +76,7 @@ $.getJSON($SCRIPT_ROOT + '/_plot', {
     } else if (data.type==='vert') {
         curve=board.create('line',[-data.result[0],1,0],{
             name: plots,
+            strokeWidth:2,
             fixed: true,
             withLabel: false
         });
