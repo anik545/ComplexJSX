@@ -52,7 +52,7 @@ $.getJSON($SCRIPT_ROOT + '/_plot', {
     $('#expressions tbody').append(
         '<tr id="row'+plots+'">'+
             '<td>'+
-                eq+
+                '`'+eq+'`'+
             '</td>'+
             '<td>'+
                 '<input type="checkbox" name="plot" id="'+plots+'" checked>'+
@@ -62,6 +62,7 @@ $.getJSON($SCRIPT_ROOT + '/_plot', {
             '</td>'+
         '</tr>'
         )
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"expressions"])
     if (data.type==='func'){
         $.each(data.result, function(i, v) {
             f = board.jc.snippet(v, true, 'x', true);
@@ -88,7 +89,6 @@ return false;
 $(document).ready(function() {
 
     $('#eq_in').on('keyup', function(e) {
-        console.log(e.keyCode);
         if (e.keyCode===13) {
             addplot();
         }});
