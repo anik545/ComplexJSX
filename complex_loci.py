@@ -16,8 +16,9 @@ def mod_to_abs(eq):
 
 def parse(eq):
     eq=mod_to_abs(eq)
-    eq=eq.replace('i','I').replace('z','Z')
+    eq=eq.replace('z','Z')
     eq_list=list(eq)
+    eq_list=['I' if ch=='i' and eq_list[n-1] not in ['p','P'] else ch for n,ch in enumerate(eq_list)]
     nums=['1','2','3','4','5','6','7','8','9','0']
     for n,ch in enumerate(eq_list):
         if (ch=='Z' or ch=='I' or ch=='A') and (eq_list[n-1] in nums):
@@ -44,15 +45,14 @@ def get_lines(lhs,rhs):
     rhs=sympify(rhs,locals=locs)
     print(rhs)
 
-    solns=list(solveset(lhs-rhs,locs['y']))
+    solns=list(solve(lhs-rhs,locs['y']))
     if solns:
         typ='func'
     else:
-        solns=list(solveset(lhs-rhs,locs['x']))
+        solns=list(solve(lhs-rhs,locs['x']))
         solns=[float(x) for x in solns]
         typ='vert'
     return typ,solns
-
 
 
 if __name__ == '__main__':

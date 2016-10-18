@@ -5,6 +5,8 @@ var y_ax=h/20;
 var board_atts = {
         boundingbox: [-x_ax, y_ax, x_ax, -y_ax],
         axis: true,
+        showCopyright:false,
+        showNavigation:false,
         pan: {
             enabled: true,
             needshift: false,
@@ -89,7 +91,6 @@ return false;
 
 
 $(document).ready(function() {
-
     $('#eq_in').on('keyup', function(e) {
         if (e.keyCode===13) {
             addplot();
