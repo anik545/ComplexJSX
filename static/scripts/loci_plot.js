@@ -42,16 +42,6 @@ var arg = function arg(x, y) {
     return null
 };
 
-$(document).on('change','[type=checkbox]',function(){
-    console.log(this);
-    var id=$(this).attr('id')
-    console.log(id,plots,lines[id]);
-    $.each(lines[id], function(i,v){
-        vis = !v.getAttribute('visible');
-        v.setAttribute({visible:vis});
-    });
-});
-
 $(document).ready(function() {
     $('#go').on('click', function() {
         var eq = $('input[name="in"]').val()
@@ -73,14 +63,22 @@ $(document).ready(function() {
                     '</td>'+
                 '</tr>'
                 )
-            $.each(data.result, function(i, v) {
-                f = board.jc.snippet(v, true, 'x', true);
-                curve = board.create('functiongraph', [f], {
+            if (data.type==='func'){
+                $.each(data.result, function(i, v) {
+                    f = board.jc.snippet(v, true, 'x', true);
+                    curve = board.create('functiongraph', [f], {
+                        name: plots,
+                        withLabel: false
+                    });
+                    lines[plots].push(curve);
+                });
+            } else if (data.type==='vert') {
+                curve=board.create('line',[-data.result[0],1,0],{
                     name: plots,
                     withLabel: false
                 });
                 lines[plots].push(curve);
-            });
+            }
         });
         return false;
     });
@@ -98,6 +96,15 @@ $(document).ready(function() {
         });
         lines[id]=[];
         $('#row'+id).remove();
+    });
+    $('#expressions').on('click','[type=checkbox]',function(){
+        console.log(this);
+        var id=$(this).attr('id')
+        console.log(id,plots,lines[id]);
+        $.each(lines[id], function(i,v){
+            vis = !v.getAttribute('visible');
+            v.setAttribute({visible:vis});
+        });
     });
 
 });

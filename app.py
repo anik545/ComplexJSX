@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,jsonify
+from flask import Flask,render_template,request,jsonify,abort
 from complex_loci import *
 
 from views.matrix import matrix_blueprint
@@ -18,10 +18,13 @@ def loci():
 def plot():
     eq=request.args.get('eq',0,type=str)
     LHS,RHS=eq.split('=')
-    lines=get_lines(LHS,RHS)
+    typ,lines=get_lines(LHS,RHS)
     lines=[str(x).replace('**','^') for x in lines]
-    print(lines)
-    return jsonify(result=lines)
+    print(typ,lines)
+    if lines:
+        return jsonify(result=lines,type=typ)
+    else:
+        abort(500)
 
 @app.route('/operations-argand')
 def operations():
