@@ -54,6 +54,24 @@ def get_lines(lhs,rhs):
         typ='vert'
     return typ,solns
 
+def get_line_simple_arg(lhs,rhs):
+    lhs,rhs=parse(lhs),parse(rhs)
+    if 'arg' in lhs:
+        lhs=lhs.replace('arg((','').replace(')','')
+        angle=sympify(rhs)
+        expr=sympify(lhs).subs('x',0).subs('y',0)
+    else:
+        rhs=rhs.replace('arg(','').replace(')','')
+        angle=sympify(lhs)
+        expr=sympify(rhs).subs('x',0).subs('y',0)
+    p1=[float(-re(expr)),float(-im(expr))]
+    print(p1,angle)
+    x,y=symbols('x y',real=True)
+    solns_dict=solve([atan2(y,x)-angle,x**2+y**2-1])
+    p2=[float(solns_dict[0][x]+p1[0]),float(solns_dict[0][y]+p1[1])]
+    print(p1,p2)
+    return (p1,p2)
+
 
 if __name__ == '__main__':
     equation="2|z-5i|=2|z-5|"

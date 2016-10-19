@@ -83,6 +83,17 @@ $.getJSON($SCRIPT_ROOT + '/_plot', {
             withLabel: false
         });
         lines[plots].push(curve);
+    } else if (data.type=='ray'){
+        p1=data.result[0]; //vertex
+        p2=data.result[1];
+        console.log(p1,p2)
+        curve=board.create('line',[p1,p2],{
+            straightFirst:false,
+            fixed:true
+            });
+        lines[plots].push(curve);
+    } else if (data.type=='arc') {
+
     }
 });
 return false;
