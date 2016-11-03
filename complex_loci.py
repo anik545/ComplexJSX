@@ -54,6 +54,9 @@ def get_lines(lhs,rhs):
         typ='vert'
     return typ,solns
 
+
+#TODO figure out when the input is this type of equation
+#maybe evaluate everything inside arg, sympify, if div
 def get_line_simple_arg(lhs,rhs):
     lhs,rhs=parse(lhs),parse(rhs)
     if 'arg' in lhs:
