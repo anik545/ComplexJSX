@@ -36,6 +36,10 @@ def plot():
 def operations():
     return render_template('operations.html')
 
+@app.route('/ttt')
+def ttt():
+    return render_template('ttt.html')
+
 if __name__=='__main__':
     app.debug = True
     app.run()
